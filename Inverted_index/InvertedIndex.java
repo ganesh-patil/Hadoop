@@ -1,8 +1,8 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
+import java.lang.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -13,6 +13,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.apache.commons.lang.StringUtils;
 
 public class InvertedIndex {
 
@@ -52,10 +53,11 @@ public class InvertedIndex {
       for(Text val : values ) {
 	if(!s.contains(val.toString())) {
 		s.add(val.toString());
-    		listString += val.toString() + ",";
+    	//	listString += val.toString() + ",";
 	}
       }
 
+     listString = StringUtils.join(s,',');
       result.set(listString);
       context.write(key, result);
     }
